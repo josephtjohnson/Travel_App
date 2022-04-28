@@ -31,7 +31,7 @@ const retrieveApi = async (url, zip, zipcode, api, apiKey) {
   try {
     const data = await response.json()
     return data;
-  } 
+  }
   catch {
     console.log('Error', error);
   }
@@ -47,7 +47,7 @@ const postData = async (url = '', data = {}) => {
     },
     body: JSON.stringify(data)
   });
-  
+
   try {
     const newData = await response.json();
     return newData;
