@@ -13,7 +13,7 @@ const app = express();
 //Here we are configuring express to use body-parser as middle-ware.
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyparser.json());
+app.use(bodyParser.json());
 
 // Cors for cross origin allowance
 const cors = require('cors');
@@ -21,12 +21,12 @@ app.use(cors());
 
 // Initialize the main project folder
 app.use(express.static('website'));
-const port = 3000;
+const port = 8000;
 
 // Spin up the server
 app.listen(port, ()=> {
-  console.log('Server running on localhost ${port}...');
-}
+  console.log('Server running on localhost: ' + port);
+});
 
 //GET route
 app.get('/all', sendData);
@@ -34,10 +34,11 @@ app.get('/all', sendData);
 function sendData(req, res) {
   if(projectData.length === 0) res.status(404).send('The weather information could not be found');
   res.send(projectData);
+  console.log('GET complete');
 }
 
 //POST route
-app.post('/all', weather);
+app.post('/add', weather);
 
 function weather(req, res) {
   if (!req.body.temperature || !req.body.date) {
@@ -46,11 +47,12 @@ function weather(req, res) {
     res.send('Weather data could not be posted');
   }
   const postData = {
-    projectData.temperature = req.body.temperature,
-    projectData.date = req.body.date,
-    projectData.feelings = req.body.content
+    date : req.body.date,
+    city : req.body.city,
+    temperature : req.body.temperature,
+    feelings : req.body.content
   }
-  projectData.push(postData);
-  res.send('Weather data posted');
+  Object.assign(projectData, postData);
+  res.send(projectData);
+  console.log('POST complete')
 }
-  
