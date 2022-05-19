@@ -25,15 +25,15 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-//GET response for homepage
-app.get('/', function (req, res) {
-    res.sendFile(path.resolve('src/client/views/index.html'))
-})
-
 //designates what port the app will listen to for incoming requests
 app.listen(8081, function () {
     console.log('Example app listening on port 8081!')
-})
+});
+
+//GET response for homepage
+app.get('/', function (req, res) {
+    res.sendFile(path.resolve('src/client/views/index.html'))
+});
 
 //POST route
 app.post('/coords', getCoordinates);
@@ -41,7 +41,7 @@ app.post('/coords', getCoordinates);
 let locationResults = []
 async function getCoordinates(req, res) {
     const city = req.body.city;
-    const url = `${geonamesURL}${city}&maxRows=1&username=${geonamesApiKey}`;
+    const url = `${geonamesURL}${city}&username=${geonamesApiKey}`;
     const data = await fetch(encodeURI(url))
         .then(res => res.json());
 
@@ -51,5 +51,4 @@ async function getCoordinates(req, res) {
         country: data.geonames[0].countryName;
     }
     locationResults.push(locationInfo);
-    res.send(locationResults)
 }
