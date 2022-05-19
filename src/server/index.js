@@ -2,6 +2,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 const geonamesApi = process.env.API_GEO;
 const geonames = process.env.GEONAMES;
+const weatherbitApi = process.env.API_WB;
+const weatherbit = process.env.WEATHERBIT;
+
+//For later
+// weatherbit url = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I'
 
 // Setup empty JS object to act as endpoint for all routes
 const projectData = {};
@@ -35,9 +40,9 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve('src/client/views/index.html'))
 });
 
-//GET response for returning data
-app.get('/', function (req, res) {
-    res.sendFile(projectData));
+//GET response for returning data to updateUI
+app.get('/display', function (req, res) {
+    res.send(projectData));
 });
 
 //POST route
