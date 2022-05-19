@@ -35,6 +35,11 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve('src/client/views/index.html'))
 });
 
+//GET response for returning data
+app.get('/', function (req, res) {
+    res.sendFile(projectData));
+});
+
 //POST route
 app.post('/coords', getCoordinates);
 
