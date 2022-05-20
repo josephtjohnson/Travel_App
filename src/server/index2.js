@@ -13,9 +13,6 @@ const pixabay = process.env.PIXABAY;
 
 let locationResults = []
 
-// Setup empty JS object to act as endpoint for all routes
-const projectData = {};
-
 // Express to run server and routes
 const express = require('express');
 
@@ -47,7 +44,7 @@ app.get('/', function (req, res) {
 
 //GET response for returning data to updateUI
 app.get('/display', function (req, res) {
-    res.send(projectData));
+    res.send(locationResults));
 });
 
 //POST route
