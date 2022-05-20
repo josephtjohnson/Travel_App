@@ -8,9 +8,9 @@ async function handleSubmit(event) {
 
     //verify a city was put into the form field
     if (Client.checkForCity(city)) {
-        //post user input
+        //request API results from user input
         try {
-              const response = await fetch('http://localhost:8081/coords', {
+              const response = await fetch('http://localhost:8081/trips', {
                   method: 'POST', // *GET, POST, PUT, DELETE, etc.
                   credentials: 'same-origin',
                   headers: {
