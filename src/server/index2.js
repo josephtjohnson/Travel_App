@@ -38,8 +38,13 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve('src/client/views/index.html'))
 });
 
+//GET response for trip details
+app.get('/display', function (req, res) {
+    res.send(locationResults);
+});
+
 //POST route
-app.get('/trip', getTripDetails);
+app.get('/trips', getTripDetails);
 
 function getTripDetails(req, res) {
     locationResults.push(city: req.body.city);
@@ -53,8 +58,6 @@ function getTripDetails(req, res) {
     
     getImage(locationResults.city);    
     console.log(locationResults);
-    
-    res.send(locationResults);
 }
 
 const getCoordinates = async (city) => {
