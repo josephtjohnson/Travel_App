@@ -11,6 +11,8 @@ const pixabay = process.env.PIXABAY;
 // weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I'
 // pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places'
 
+let locationResults = []
+
 // Setup empty JS object to act as endpoint for all routes
 const projectData = {};
 
@@ -49,34 +51,34 @@ app.get('/display', function (req, res) {
 });
 
 //POST route
-app.post('/coords', getCoordinates);
+app.post('/coords', getTripDetails);
 
-let locationResults = []
-async function getCoordinates(req, res) {
-    const city = req.body.city;
-    //fetch coordinates for weatherbit api
+async function getTripDetails(req, res) {
+    locationResults.push(city: req.body.city);
+    getCoordinates(locationResults.city);
+    getWeather(locationResults.lat, locationResults.lng);
+    getImage(locationResults.city);    
+}
+
+async function getCoordinates(city) {
     const geoUrl = `${geonamesURL}${city}&username=${geonamesApiKey}`;
-    const coords = await fetch(encodeURI(geoUrl))
+    const coordiates = await fetch(encodeURI(geoUrl))
         .then(res => res.json());
-    const locationInfo = {
-        lat: coords.geonames[0].lat,
-        lng: coords.geonames[0].lng,
-        country: coords.geonames[0].countryName
+    locationResults.push(lat: coordinates.geonames[0].lat);
+    locationresults.push(lng: coordinates.geonames[0].lng);
     };
-    locationResults.push(locationInfo);
-    //fetch temperature and conditions from city
-    const weather = await fetch(encodeURI(weatherbitUrl))
+
+async function getWeather(lat, lng) {
+    const weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I';
+    const weatherData = await fetch(encodeURI(weatherbitUrl))
         .then(res => res.json());
-    const currentWeather = {
-        temp: currentWeather.data.temp,
-        conditions: currentWeather.data.weather.description
+    locationResults.push(temp: weatherData.data.weather.temp);
+    locationResults.push(conditions: weatherData.data.weather.conditions);
     };
-    locationResults.push(currentWeather);
-    //fetch image of city
+
+async function getImage(city) {
+    const pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places';
     const weather = await fetch(encodeURI(pixabayUrl))
         .then(res => res.json());
-    const cityImage = {
-        imageUrl: hits[0].pageURL
+    locationResults.push(imageUrl: hits[0].pageUrl);
     };
-    locationResults.push(cityImage);
-};
