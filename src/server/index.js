@@ -4,9 +4,12 @@ const geonamesApi = process.env.API_GEO;
 const geonames = process.env.GEONAMES;
 const weatherbitApi = process.env.API_WB;
 const weatherbit = process.env.WEATHERBIT;
+const pixabayApi = process.env.API_PX;
+const pixabay = process.env.PIXABAY;
 
 //For later
-// weatherbit url = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I'
+// weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I'
+// pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places'
 
 // Setup empty JS object to act as endpoint for all routes
 const projectData = {};
@@ -51,14 +54,29 @@ app.post('/coords', getCoordinates);
 let locationResults = []
 async function getCoordinates(req, res) {
     const city = req.body.city;
-    const url = `${geonamesURL}${city}&username=${geonamesApiKey}`;
-    const data = await fetch(encodeURI(url))
+    //fetch coordinates for weatherbit api
+    const geoUrl = `${geonamesURL}${city}&username=${geonamesApiKey}`;
+    const coords = await fetch(encodeURI(geoUrl))
         .then(res => res.json());
-
     const locationInfo = {
-        lat: data.geonames[0].lat;
-        lng: data.geonames[0].lng;
-        country: data.geonames[0].countryName;
-    }
+        lat: coords.geonames[0].lat,
+        lng: coords.geonames[0].lng,
+        country: coords.geonames[0].countryName
+    };
     locationResults.push(locationInfo);
-}
+    //fetch temperature and conditions from city
+    const weather = await fetch(encodeURI(weatherbitUrl))
+        .then(res => res.json());
+    const currentWeather = {
+        temp: currentWeather.data.temp,
+        conditions: currentWeather.data.weather.description
+    };
+    locationResults.push(currentWeather);
+    //fetch image of city
+    const weather = await fetch(encodeURI(pixabayUrl))
+        .then(res => res.json());
+    const cityImage = {
+        imageUrl: hits[0].pageURL
+    };
+    locationResults.push(cityImage);
+};
