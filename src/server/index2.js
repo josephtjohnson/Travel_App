@@ -76,7 +76,7 @@ const getWeather = async (lat, lng) => {
     locationResults.push(conditions: weatherData.data.weather.conditions);
     };
 
-const getImage async (city) => {
+const getImage = async (city) => {
     const pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places';
     const weather = await fetch(encodeURI(pixabayUrl))
         .then(res => res.json());
