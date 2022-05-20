@@ -7,10 +7,6 @@ const weatherbit = process.env.WEATHERBIT;
 const pixabayApi = process.env.API_PX;
 const pixabay = process.env.PIXABAY;
 
-//For later
-// weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I'
-// pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places'
-
 let locationResults = []
 
 // Express to run server and routes
@@ -42,22 +38,26 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve('src/client/views/index.html'))
 });
 
-//GET response for returning data to updateUI
-app.get('/display', function (req, res) {
-    res.send(locationResults));
-});
-
 //POST route
-app.post('/coords', getTripDetails);
+app.get('/trip', getTripDetails);
 
-async function getTripDetails(req, res) {
+function getTripDetails(req, res) {
     locationResults.push(city: req.body.city);
+    console.log(locationResults);
+    
     getCoordinates(locationResults.city);
+    console.log(locationResults);
+    
     getWeather(locationResults.lat, locationResults.lng);
+    console.log(locationResults);
+    
     getImage(locationResults.city);    
+    console.log(locationResults);
+    
+    res.send(locationResults);
 }
 
-async function getCoordinates(city) {
+const getCoordinates = async (city) => {
     const geoUrl = `${geonamesURL}${city}&username=${geonamesApiKey}`;
     const coordiates = await fetch(encodeURI(geoUrl))
         .then(res => res.json());
@@ -65,7 +65,7 @@ async function getCoordinates(city) {
     locationresults.push(lng: coordinates.geonames[0].lng);
     };
 
-async function getWeather(lat, lng) {
+const getWeather = async (lat, lng) => {
     const weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I';
     const weatherData = await fetch(encodeURI(weatherbitUrl))
         .then(res => res.json());
@@ -73,7 +73,7 @@ async function getWeather(lat, lng) {
     locationResults.push(conditions: weatherData.data.weather.conditions);
     };
 
-async function getImage(city) {
+const getImage async (city) => {
     const pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places';
     const weather = await fetch(encodeURI(pixabayUrl))
         .then(res => res.json());
