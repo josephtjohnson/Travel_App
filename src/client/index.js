@@ -1,4 +1,9 @@
-import { weatherData } from  './js/app.js';
+import { handleSubmit } from  './js/formHandler.js';
+import { clearForm } from  './js/formHandler.js';
+import { checkForCity } from  './js/locationChecker.js';
+
 import './styles/style.scss';
 
-export { weatherData }
+export { handleSubmit};
+export { clearForm };
+export { checkForCity };

@@ -2,39 +2,60 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Weather Journal</title>
+<title>Adventure Planning</title>
 <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
 </head>
  <body>
 <div id = "app">
-  <div class ="holder headline">
+
+  <div class ="headline">
     Adventure Travel Planning
   </div>
-  <div class ="holder city">
-    <label for="">Enter City here</label>
-    <input type="text" id="city" placeholder="enter city here">
+
+  <div class="u-input">
+	  <div class ="holder">
+		<label for="">Where are you going?</label>
+		<input type="text" id="location" placeholder="enter city here">
+	  </div>
+
+	  <div class ="holder">
+		<label for="">When are you leaving?</label>
+		<input type="text" id="s-date" placeholder="enter start date here (MM/DD/YYYY)">
+	  </div>
+
+	  <div class ="holder">
+		<label for="">When will you return?</label>
+		<input type="text" id="e-date" placeholder="enter end date here (MM/DD/YYYY)">
+	  </div>
   </div>
-  <div class ="holder start-date">
-    <label for="">Enter adventure start date here</label>
-    <input type="text" id="s-date" placeholder="enter start date here">
+
+  <div class = "add-delete">
+	  <div class = "buttons">
+		<button type = "Add"> Add </button>
+	  </div>
+	  <div class = "buttons">
+		<button type = "Remove"> Remove </button>
+	  </div>
   </div>
-  <div class ="holder end-date">
-    <label for="">Enter adventure end date here</label>
-    <input type="text" id="e-date" placeholder="enter end date here">
+
+
+  <div class ="city-image">Image goes here
   </div>
-    <button id="generate" type = "submit"> Generate </button>
+
+  <div class ="results">
+	<div class = "title">-----Trip Details-----</div>
+	<div id = "city">Destination: </div>
+	<div id = "start-date">Departure Date: </div>
+	<div id = "end-date">Return Date: </div>
+	<div id = "trip-length">Trip Length: </div>
   </div>
-  <div class ="holder entry">
-  <div class = "title">Most Recent Entry</div>
-   <div id = "entryHolder">
-   <div id = "city"></div>
-   <div id = "start-date"></div>
-   <div id = "end-date"></div>
-   <div id = "trip-length"></div>
+  <div class ="weather">
+	<div class = "title">-----Weather Forecast-----</div>
+	<div id = "c-temp">Current Temperature: </div>
+	<div id = "c-cond">Current Conditions: </div>
   </div>
+  </div >
   </div>
-  </div>
-<script src="app.js" type="text/javascript"></script>
+</div>
 </body>
 </html>
