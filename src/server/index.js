@@ -24,7 +24,7 @@ app.use(express.static('dist'))
 
 //Here we are configuring express to use body-parser as middle-ware.
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
+//app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Cors for cross origin allowance
@@ -56,36 +56,52 @@ function getTripDetails(req, res) {
     getCoordinates(locationResults.city);
     console.log(locationResults);
 
-    getWeather(locationResults.lat, locationResults.lng);
+    //getWeather(locationResults.lat, locationResults.lng);
     console.log(locationResults);
 
-    getImage(locationResults.city);
+    //getImage(locationResults.city);
     console.log(locationResults);
 }
 
 const getCoordinates = async (city) => {
-    const geoUrl = geonames + city + '&username=' + geonamesApi;
+    const geoUrl = geonames + city + '&maxRows=1' + '&username=' + geonamesApi;
     console.log(geoUrl);
     console.log('geo url received');
-    const coordiates = await fetch(encodeURI(geoUrl))
-        .then(res => res.json());
-        locationResults['lat'] = coordinates.geonames[0].lat;
-        locationResults['lng'] = coordinates.geonames[0].lng;
+    const coordinates = await fetch(encodeURI(geoUrl))
+        .then(res => {
+            JSON.stringify(res);
+            console.log(res.body);
+        });
+        //.then(res => console.log(res));
+        //.then(res => res.json())
+        //.then(res => console.log(res));
+        //.then(text => console.log(text));
+        locationResults['lat'] = coordinates.geonames.geoname.lat;
+        locationResults['lng'] = coordinates.geonames.geoname.lng;
+        console.log(coordinates);
+        //locationResults['lat'] = coordinates.geonames[0].lat;
+        //locationResults['lng'] = coordinates.geonames[0].lng;
+        //console.log(locationResults[lat]);
     };
 
 const getWeather = async (lat, lng) => {
-    const weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I';
+    //const weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I';
+    const weatherbitUrl = weatherbit + 'lat=' + lat + 'lon=' + lng + '&key=' + weatherbitApi + '&lang=en&units=I';
+    console.log(weatherbitUrl);
     console.log('weather url received');
     const weatherData = await fetch(encodeURI(weatherbitUrl))
         .then(res => res.json());
+        console.log(weatherData);
         locationResults['temp'] = weatherData.data.weather.temp;
         locationResults['conditions'] = weatherData.data.weather.conditions;
     };
 
 const getImage = async (city) => {
-    const pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places';
+    //const pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places';
+    const pixabayUrl = pixabay + 'key=' + pixabayApi + '&q=' + city + '&image_type=photo&category=places';
     console.log('pixabay url received');
     const weather = await fetch(encodeURI(pixabayUrl))
         .then(res => res.json());
         locationResults['image'] = hits[0].pageUrl;
+        console.log(locationResults);
     };
