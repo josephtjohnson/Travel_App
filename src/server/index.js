@@ -1,5 +1,7 @@
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({path: 'C:\\Users\\Johns\\Desktop\\Travel-project\\Travel-App\\src\\.env'
+});
+
 const geonamesApi = process.env.API_GEO;
 const geonames = process.env.GEONAMES;
 const weatherbitApi = process.env.API_WB;
@@ -62,9 +64,10 @@ function getTripDetails(req, res) {
 }
 
 const getCoordinates = async (city) => {
-    const geoUrl = `${geonames}${city}&username=${geonamesApi}`;
+    const geoUrl = geonames + city + '&username=' + geonamesApi;
+    console.log(geoUrl);
     console.log('geo url received');
-    const coordiates = await fetch(geoUrl)
+    const coordiates = await fetch(encodeURI(geoUrl))
         .then(res => res.json());
         locationResults['lat'] = coordinates.geonames[0].lat;
         locationResults['lng'] = coordinates.geonames[0].lng;
