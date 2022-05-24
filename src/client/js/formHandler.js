@@ -33,11 +33,11 @@ async function handleSubmit(event) {
             console.error('HERE IS YOUR ERROR!', e)
         };
     };
-    alert('City cannot be null');
+    //alert('City cannot be null');
     clearForm();
 };
 
-function clearForm(event) {
+function clearForm() {
     event.preventDefault();
     document.getElementById('city').innerHTML = 'Destination: ';
     document.getElementById('start-date').innerHTML = 'Departure Date: ';

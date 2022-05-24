@@ -55,8 +55,9 @@ function getTripDetails(req, res) {
 
     getCoordinates(locationResults.city);
     console.log(locationResults);
+    console.log('line 58', locationResults.lat, locationResults.lng);
 
-    //getWeather(locationResults.lat, locationResults.lng);
+    .thengetWeather(locationResults.lat, locationResults.lng);
     console.log(locationResults);
 
     //getImage(locationResults.city);
@@ -64,36 +65,28 @@ function getTripDetails(req, res) {
 }
 
 const getCoordinates = async (city) => {
-    const geoUrl = geonames + city + '&maxRows=1' + '&username=' + geonamesApi;
+    const geoUrl = geonames + city + '&maxRows=1'  + '&type=json' + '&username=' +  geonamesApi;
     console.log(geoUrl);
     console.log('geo url received');
     const coordinates = await fetch(encodeURI(geoUrl))
-        .then(res => {
-            JSON.stringify(res);
-            console.log(res.body);
-        });
-        //.then(res => console.log(res));
-        //.then(res => res.json())
-        //.then(res => console.log(res));
-        //.then(text => console.log(text));
-        locationResults['lat'] = coordinates.geonames.geoname.lat;
-        locationResults['lng'] = coordinates.geonames.geoname.lng;
-        console.log(coordinates);
-        //locationResults['lat'] = coordinates.geonames[0].lat;
-        //locationResults['lng'] = coordinates.geonames[0].lng;
-        //console.log(locationResults[lat]);
+        .then(res => res.json());
+    locationResults['lat'] = coordinates.geonames[0].lat;
+    console.log('line 74', locationResults['lat']);
+    locationResults['lng'] = coordinates.geonames[0].lng;
+    console.log('line 76: ', locationResults);
     };
 
 const getWeather = async (lat, lng) => {
     //const weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I';
+    console.log(lat, lng);
     const weatherbitUrl = weatherbit + 'lat=' + lat + 'lon=' + lng + '&key=' + weatherbitApi + '&lang=en&units=I';
     console.log(weatherbitUrl);
     console.log('weather url received');
     const weatherData = await fetch(encodeURI(weatherbitUrl))
         .then(res => res.json());
         console.log(weatherData);
-        locationResults['temp'] = weatherData.data.weather.temp;
-        locationResults['conditions'] = weatherData.data.weather.conditions;
+        //locationResults['temp'] = weatherData.data.weather.temp;
+        //locationResults['conditions'] = weatherData.data.weather.conditions;
     };
 
 const getImage = async (city) => {
