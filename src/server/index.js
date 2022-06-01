@@ -52,43 +52,42 @@ const getTripDetails = async (req, res) => {
     locationResults['city'] = req.body.city
     await getCoordinates(locationResults.city);
     await getWeather(locationResults.lat, locationResults.lng);
-    //getImage(locationResults.city);
+    await getImage(locationResults.city);
     console.log(locationResults);
 };
 
 const getCoordinates = async (city) => {
     const geoUrl = geonames + city + '&maxRows=1'  + '&type=json' + '&username=' +  geonamesApi;
-    console.log(geoUrl);
-    console.log('geo url received');
+    //console.log(geoUrl);
+    //console.log('geo url received');
     const coordinates = await fetch(encodeURI(geoUrl))
         .then(res => res.json());
     locationResults['lat'] = coordinates.geonames[0].lat;
-    console.log('line 74', locationResults['lat']);
     locationResults['lng'] = coordinates.geonames[0].lng;
-    console.log('line 76: ', locationResults['lng']);
     };
 
 const getWeather = async (lat, lng) => {
     //const weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I';
-    console.log(locationResults['lat'], locationResults['lng']);
-    const weatherbitUrl = weatherbit + 'lat=' + lat + 'lon=' + lng + '&key=' + weatherbitApi + '&lang=en&units=I';
+    console.log(lat, lng);
+    const weatherbitUrl = weatherbit + 'lat=' + lat + '&lon=' + lng + '&key=' + weatherbitApi + '&lang=en&units=I';
     console.log(weatherbitUrl);
     console.log('weather url received');
     const weatherData = await fetch(encodeURI(weatherbitUrl))
         .then(res => res.json());
-        console.log('line 79', weatherData);
-        //locationResults['temp'] = weatherData.data.weather.temp;
-        //locationResults['conditions'] = weatherData.data.weather.conditions;
+        //console.log('line 79', weatherData.data[0].weather.description);
+        locationResults['temp'] = weatherData.data[0].temp;
+        locationResults['conditions'] = weatherData.data[0].weather.description;
     };
 
 const getImage = async (city) => {
     //const pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places';
     const pixabayUrl = pixabay + 'key=' + pixabayApi + '&q=' + city + '&image_type=photo&category=places';
     console.log('pixabay url received');
-    const weather = await fetch(encodeURI(pixabayUrl))
+    console.log(pixabayUrl);
+    const images = await fetch(encodeURI(pixabayUrl))
         .then(res => res.json());
-        locationResults['image'] = hits[0].pageUrl;
-        console.log(locationResults);
+        //console.log(images.hits[0].pageURL);
+        locationResults['image'] = images.hits[0].pageURL;
     };
 
 //POST route
