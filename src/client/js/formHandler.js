@@ -1,5 +1,5 @@
 async function handleSubmit(event) {
-    event.preventDefault(event)
+    event.preventDefault();
 
     let city = document.getElementById('location').value;
     let startDate = new Date(document.getElementById('s-date').value);
@@ -8,7 +8,7 @@ async function handleSubmit(event) {
     console.log(tripLength);
 
     //verify a city was put into the form field
-    if (Client.checkForCity(city)) {
+    if (Client.checkForCity(city) && Client.checkForDate(startDate, endDate)) {
         //request API results from user input
         try {
               const response = await fetch('http://localhost:8081/trips', {
