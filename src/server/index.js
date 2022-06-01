@@ -46,23 +46,15 @@ app.get('/display', function (req, res) {
     res.send(locationResults);
 });
 
-//POST route
-app.post('/trips', getTripDetails);
 
-function getTripDetails(req, res) {
-    locationResults['city'] = req.body.city;
-    console.log(locationResults);
 
-    getCoordinates(locationResults.city);
-    console.log(locationResults);
-    console.log('line 58', locationResults.lat, locationResults.lng);
-
-    .thengetWeather(locationResults.lat, locationResults.lng);
-    console.log(locationResults);
-
+const getTripDetails = async (req, res) => {
+    locationResults['city'] = req.body.city
+    await getCoordinates(locationResults.city);
+    await getWeather(locationResults.lat, locationResults.lng);
     //getImage(locationResults.city);
     console.log(locationResults);
-}
+};
 
 const getCoordinates = async (city) => {
     const geoUrl = geonames + city + '&maxRows=1'  + '&type=json' + '&username=' +  geonamesApi;
@@ -73,18 +65,18 @@ const getCoordinates = async (city) => {
     locationResults['lat'] = coordinates.geonames[0].lat;
     console.log('line 74', locationResults['lat']);
     locationResults['lng'] = coordinates.geonames[0].lng;
-    console.log('line 76: ', locationResults);
+    console.log('line 76: ', locationResults['lng']);
     };
 
 const getWeather = async (lat, lng) => {
     //const weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I';
-    console.log(lat, lng);
+    console.log(locationResults['lat'], locationResults['lng']);
     const weatherbitUrl = weatherbit + 'lat=' + lat + 'lon=' + lng + '&key=' + weatherbitApi + '&lang=en&units=I';
     console.log(weatherbitUrl);
     console.log('weather url received');
     const weatherData = await fetch(encodeURI(weatherbitUrl))
         .then(res => res.json());
-        console.log(weatherData);
+        console.log('line 79', weatherData);
         //locationResults['temp'] = weatherData.data.weather.temp;
         //locationResults['conditions'] = weatherData.data.weather.conditions;
     };
@@ -98,3 +90,6 @@ const getImage = async (city) => {
         locationResults['image'] = hits[0].pageUrl;
         console.log(locationResults);
     };
+
+//POST route
+app.post('/trips', getTripDetails);
