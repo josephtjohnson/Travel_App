@@ -42,15 +42,15 @@ async function handleSubmit(event) {
     */
     if(inputValidation(city, start, end, startDate, endDate)) {
         try {
-              const request = await fetch('http://localhost:8081/trips', {
-                  method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                  credentials: 'same-origin',
-                  headers: {
-                      'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({city: city}), // body data type must match "Content-Type" header
+            const request = await fetch('http://localhost:8081/trips', {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({city: city}), // body data type must match "Content-Type" header
             });
-            updateUI();
+        updateUI(city, start, end, tripLength);
         } catch(e) {
             console.log("error", e);
         };
