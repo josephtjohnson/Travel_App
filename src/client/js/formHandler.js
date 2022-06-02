@@ -97,14 +97,14 @@ function inputValidation(city, start, end, startDate, endDate) {
 
 async function updateUI(city, start, end, tripLength) {
     const response = await fetch('http://localhost:8081/display');
-    console.log(response.body);
-    //console.log();
+    const data = await response.text();
+    console.log(data);
     document.getElementById('city').innerHTML = "Destination: " + city;
     document.getElementById('start-date').innerHTML = "Departure Date: " + start;
     document.getElementById('end-date').innerHTML = "Return Date: " + end;
     document.getElementById('trip-length').innerHTML = "Trip Length: " + tripLength + " days";
-    //document.getElementById('c-temp').insertAdjacentHTML(beforeend, response.temp );
-    //document.getElementById('c-cond').insertAdjacentHTML(beforeend, alldata.conditions );
+    document.getElementById('c-temp').innerHTML = "Current Temperature: " + "68 testing";
+    document.getElementById('c-cond').innerHTML = "Current Conditions: " + "Clear testing";
 };
 
 //add event listener and then add method to update UI
