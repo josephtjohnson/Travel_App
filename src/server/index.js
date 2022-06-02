@@ -46,8 +46,6 @@ app.get('/display', function (req, res) {
     res.send(locationResults);
 });
 
-
-
 const getTripDetails = async (req, res) => {
     locationResults['city'] = req.body.city
     await getCoordinates(locationResults.city);
@@ -68,10 +66,9 @@ const getCoordinates = async (city) => {
 
 const getWeather = async (lat, lng) => {
     //const weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I';
-    console.log(lat, lng);
     const weatherbitUrl = weatherbit + 'lat=' + lat + '&lon=' + lng + '&key=' + weatherbitApi + '&lang=en&units=I';
-    console.log(weatherbitUrl);
-    console.log('weather url received');
+    //console.log(weatherbitUrl);
+    //console.log('weather url received');
     const weatherData = await fetch(encodeURI(weatherbitUrl))
         .then(res => res.json());
         //console.log('line 79', weatherData.data[0].weather.description);
@@ -82,8 +79,8 @@ const getWeather = async (lat, lng) => {
 const getImage = async (city) => {
     //const pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places';
     const pixabayUrl = pixabay + 'key=' + pixabayApi + '&q=' + city + '&image_type=photo&category=places';
-    console.log('pixabay url received');
-    console.log(pixabayUrl);
+    //console.log('pixabay url received');
+    //console.log(pixabayUrl);
     const images = await fetch(encodeURI(pixabayUrl))
         .then(res => res.json());
         //console.log(images.hits[0].pageURL);
