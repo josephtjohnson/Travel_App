@@ -52,6 +52,7 @@ const getTripDetails = async (req, res) => {
     await getWeather(locationResults.lat, locationResults.lng);
     await getImage(locationResults.city);
     console.log(locationResults);
+    res.send("POST request complete!");
 };
 
 const getCoordinates = async (city) => {
