@@ -1,25 +1,21 @@
 function checkForCity(city) {
     console.log("::: Running checkForCity :::", city);
-    if (city == null) {
-        alert('City cannot be blank');
+    if (city.length == 0) {
+        console.log("city empty");
         return false;
-    }
-
+    };
+    console.log('check true');
     return true;
 };
 
 function checkForDate(startDate, endDate) {
     console.log("::: Running checkForDate :::", startDate, endDate)
     const date_regex = /^\d{2}\/\d{2}\/\d{4}$/;
-    if (startDate == null || endDate == null) {
-        alert('Please input a date');
+    if(!startDate.match(date_regex) && !endDate.match(date_regex)) {
+        console.log("date failed");
         return false;
     }
-    else if(!startDate.match(date_regex) && !endDate.match(date_regex)) {
-        alert('Please input a date with formt MM/DD/YYYY')
-        return false;
-    }
-
+    console.log("date passed");
     return true;
 };
 

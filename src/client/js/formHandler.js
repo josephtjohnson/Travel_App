@@ -1,15 +1,44 @@
 async function handleSubmit(event) {
     event.preventDefault();
-
+    //Remove error message if it exists
+    if(document.querySelector('.error-msg')) {
+        console.log(document.querySelector('.error-msg'));
+        document.querySelector('.error-msg').remove();
+    }
     let city = document.getElementById('location').value;
+    let start = document.getElementById('s-date').value;
+    let end = document.getElementById('e-date').value;
     let startDate = new Date(document.getElementById('s-date').value);
     let endDate = new Date(document.getElementById('e-date').value);
     let tripLength = ((endDate.getTime() - startDate.getTime()) / 86400000);
-    console.log(tripLength);
+
 
     //verify a city was put into the form field
-    if (Client.checkForCity(city) && Client.checkForDate(startDate, endDate)) {
-        //request API results from user input
+    if (!Client.checkForCity(city)) {
+        let div = document.createElement("div");
+        console.log(div);
+        div.classList.add("error-msg");
+        console.log(div);
+        div.innerHTML += "Please enter a valid city";
+        console.log(div);
+        let top = document.getElementsByClassName("headline")[0];
+        console.log(top);
+        document.getElementById('app').insertBefore(div, top);
+        clearForm();
+    }
+    else if(!Client.checkForDate(start, end)) {
+        let div = document.createElement("div");
+        console.log(div);
+        div.classList.add("error-msg");
+        console.log(div);
+        div.innerHTML += "Please enter a valid date format MM/DD/YYYY";
+        console.log(div);
+        let top = document.getElementsByClassName("headline")[0];
+        console.log(top);
+        document.getElementById('app').insertBefore(div, top);
+        clearForm();
+    }
+    else {
         try {
               const response = await fetch('http://localhost:8081/trips', {
                   method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -30,15 +59,17 @@ async function handleSubmit(event) {
                 document.getElementById('c-cond').insertAdjacentHTML(beforeend, alldata.conditions );
             })
         } catch(e) {
-            console.error('HERE IS YOUR ERROR!', e)
+            console.log("error", e);
         };
-    };
-    //alert('City cannot be null');
-    clearForm();
+    }
 };
 
 function clearForm() {
     event.preventDefault();
+    city.innerHTML('');
+    startDate.innerHTML('');
+    endDate.innerHTML('');
+    document.getElementsByClassName('error-msg')[0].remove();
     document.getElementById('city').innerHTML = 'Destination: ';
     document.getElementById('start-date').innerHTML = 'Departure Date: ';
     document.getElementById('end-date').innerHTML = 'Return Date: ';
