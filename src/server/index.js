@@ -9,7 +9,7 @@ const weatherbit = process.env.WEATHERBIT;
 const pixabayApi = process.env.API_PX;
 const pixabay = process.env.PIXABAY;
 
-let locationResults = []
+let locationResults = {};
 
 // Express to run server and routes
 const express = require('express');
@@ -57,8 +57,6 @@ const getTripDetails = async (req, res) => {
 
 const getCoordinates = async (city) => {
     const geoUrl = geonames + city + '&maxRows=1'  + '&type=json' + '&username=' +  geonamesApi;
-    //console.log(geoUrl);
-    //console.log('geo url received');
     const coordinates = await fetch(encodeURI(geoUrl))
         .then(res => res.json());
     locationResults['lat'] = coordinates.geonames[0].lat;
@@ -66,25 +64,17 @@ const getCoordinates = async (city) => {
     };
 
 const getWeather = async (lat, lng) => {
-    //const weatherbitUrl = '${weatherbit}lat=${lat}&lon=${lon}&key={weatherbitApi}&lang=en&units=I';
     const weatherbitUrl = weatherbit + 'lat=' + lat + '&lon=' + lng + '&key=' + weatherbitApi + '&lang=en&units=I';
-    //console.log(weatherbitUrl);
-    //console.log('weather url received');
     const weatherData = await fetch(encodeURI(weatherbitUrl))
         .then(res => res.json());
-        //console.log('line 79', weatherData.data[0].weather.description);
         locationResults['temp'] = weatherData.data[0].temp;
         locationResults['conditions'] = weatherData.data[0].weather.description;
     };
 
 const getImage = async (city) => {
-    //const pixabayUrl = '${pixabay}key=${pixabayApi}&q=${city}&image_type=photo&category=places';
     const pixabayUrl = pixabay + 'key=' + pixabayApi + '&q=' + city + '&image_type=photo&category=places';
-    //console.log('pixabay url received');
-    //console.log(pixabayUrl);
     const images = await fetch(encodeURI(pixabayUrl))
         .then(res => res.json());
-        //console.log(images.hits[0].pageURL);
         locationResults['image'] = images.hits[0].pageURL;
     };
 
