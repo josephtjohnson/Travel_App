@@ -75,7 +75,12 @@ const getImage = async (city) => {
     const pixabayUrl = pixabay + 'key=' + pixabayApi + '&q=' + city + '&image_type=photo&category=places';
     const images = await fetch(encodeURI(pixabayUrl))
         .then(res => res.json());
-        locationResults['image'] = images.hits[0].largeImageURL;
+        if (images.hits[0].largeImageURL == null) {
+            locationResults['image'] = 'https://globalcastaway.com/wp-content/uploads/2019/11/adventure-quotes-jobs-fill-your-pockets-but-adventure-fill-your-soul.jpg';
+        }
+        else {
+            locationResults['image'] = images.hits[0].largeImageURL;
+        };
     };
 
 //POST route
