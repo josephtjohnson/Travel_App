@@ -30,7 +30,8 @@
     "node-sass": "^7.0.1",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
-    "webpack-dev-server": "^4.9.0"
+    "webpack-dev-server": "^4.9.0",
+    "workbox-webpack-plugin": "^6.5.3"
   },
   "repository": {
     "type": "git",

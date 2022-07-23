@@ -54,9 +54,12 @@ body{
 	text-align: center;
 }
 
-.city-image {
+#city-image{
 	grid-area: img;
 	border: 1px solid black;
+    background-image: none;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .add-delete {

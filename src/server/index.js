@@ -61,10 +61,11 @@ const getCoordinates = async (city) => {
         .then(res => res.json());
     locationResults['lat'] = coordinates.geonames[0].lat;
     locationResults['lng'] = coordinates.geonames[0].lng;
+    console.log(locationResults);
     };
 
 const getWeather = async (lat, lng) => {
-    const weatherbitUrl = weatherbit + 'lat=' + lat + '&lon=' + lng + '&key=' + weatherbitApi + '&lang=en&units=I';
+    const weatherbitUrl = weatherbit + 'lat=' + lat + '&lon=' + lng + '&key=' + weatherbitApi + '&lang=en&units=I&days=1';
     const weatherData = await fetch(encodeURI(weatherbitUrl))
         .then(res => res.json());
         locationResults['temp'] = weatherData.data[0].temp;
@@ -75,7 +76,8 @@ const getImage = async (city) => {
     const pixabayUrl = pixabay + 'key=' + pixabayApi + '&q=' + city + '&image_type=photo&category=places';
     const images = await fetch(encodeURI(pixabayUrl))
         .then(res => res.json());
-        if (images.hits[0].largeImageURL == null) {
+        console.log(images.total);
+        if (images.total == 0) {
             locationResults['image'] = 'https://globalcastaway.com/wp-content/uploads/2019/11/adventure-quotes-jobs-fill-your-pockets-but-adventure-fill-your-soul.jpg';
         }
         else {

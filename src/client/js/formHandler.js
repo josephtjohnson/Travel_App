@@ -65,6 +65,9 @@ function clearForm() {
     document.getElementById('trip-length').innerHTML = 'Trip Length:';
     document.getElementById('c-temp').innerHTML = 'Current Temperature:';
     document.getElementById('c-cond').innerHTML = 'Current Conditions:';
+    const img = document.getElementById('city-image');
+    img.style.backgroundImage = 'none';
+    img.style.border = '1px solid black';
 };
 
 function inputValidation(city, start, end, startDate, endDate) {
@@ -98,15 +101,17 @@ function inputValidation(city, start, end, startDate, endDate) {
 async function updateUI(city, start, end, tripLength) {
     const response = await fetch('http://localhost:8081/display');
     const tripDets = await response.json();
-    console.log(tripDets);
-    const imageUrl = new URL(tripDets.image);
     document.getElementById('city').innerHTML = "Destination: " + city;
     document.getElementById('start-date').innerHTML = "Departure Date: " + start;
     document.getElementById('end-date').innerHTML = "Return Date: " + end;
     document.getElementById('trip-length').innerHTML = "Trip Length: " + tripLength + " days";
     document.getElementById('c-temp').innerHTML = "Current Temperature: " + tripDets.temp + "\u00B0 F";
     document.getElementById('c-cond').innerHTML = "Current Conditions: " + tripDets.conditions;
-    document.querySelector(".city-image").style.backgroundImage = imageUrl;
+    console.log(tripDets.image);
+    const img = document.getElementById('city-image');
+    img.style.backgroundImage = 'url(' + tripDets.image + ')';
+    img.style.border = 'none';
+    console.log(img.style.backgroundImage);
 };
 
 //add event listener and then add method to update UI
