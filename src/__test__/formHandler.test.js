@@ -9,11 +9,7 @@ describe("Testing the submit functionality", () => {
 		expect(res.status).toEqual(200)
 	});
 
-	test("Testing the updateUI() function", () => {
-		expect(updateUI('Chicago', '11/02/2022', '11/03/2022', 1)).toBeDefined()
-	});
-
-	test("Testing the inputValidation() function", () => {
-		expect(inputValidation('Chicago', '11/02/2022', '11/03/2022', '11/02/2022', '11/03/2022')).toBeTruthy()
+	test("Testing the clearFrom() function is defined", () => {
+		expect(clearForm()).toBeDefined()
 	});
 });
