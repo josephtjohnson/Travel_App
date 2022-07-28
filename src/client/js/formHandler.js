@@ -42,7 +42,7 @@ async function handleSubmit(event) {
     */
     if(inputValidation(city, start, end, startDate, endDate)) {
         try {
-            const request = await fetch('http://localhost:8081/trips', {
+            const request = await fetch('http://localhost:8070/trips', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             credentials: 'same-origin',
             headers: {
@@ -99,7 +99,7 @@ function inputValidation(city, start, end, startDate, endDate) {
 };
 
 async function updateUI(city, start, end, tripLength) {
-    const response = await fetch('http://localhost:8081/display');
+    const response = await fetch('http://localhost:8070/display');
     const tripDets = await response.json();
     document.getElementById('city').innerHTML = "Destination: " + city;
     document.getElementById('start-date').innerHTML = "Departure Date: " + start;
@@ -118,5 +118,5 @@ async function updateUI(city, start, end, tripLength) {
 document.querySelector('button[type=Add]').addEventListener("click", handleSubmit);
 document.querySelector('button[type=Remove]').addEventListener("click", clearForm);
 
-export { handleSubmit };
-export { clearForm };
+module.exports = handleSubmit;
+module.exports = clearForm;

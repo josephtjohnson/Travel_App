@@ -23,6 +23,6 @@ function chronos(startDate, endDate) {
     return true;
 };
 
-export { checkForCity };
-export { checkForDate };
-export { chronos };
+module.exports = checkForCity;
+module.exports = checkForDate;
+module.exports = chronos;
