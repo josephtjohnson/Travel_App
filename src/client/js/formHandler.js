@@ -42,7 +42,7 @@ async function handleSubmit(event) {
     */
     if(inputValidation(city, start, end, startDate, endDate)) {
         try {
-            const request = await fetch('http://localhost:8070/trips', {
+            const request = await fetch('http://localhost:8091/trips', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             credentials: 'same-origin',
             headers: {
@@ -99,7 +99,7 @@ function inputValidation(city, start, end, startDate, endDate) {
 };
 
 async function updateUI(city, start, end, tripLength) {
-    const response = await fetch('http://localhost:8070/display');
+    const response = await fetch('http://localhost:8091/display');
     const tripDets = await response.json();
     document.getElementById('city').innerHTML = "Destination: " + city;
     document.getElementById('start-date').innerHTML = "Departure Date: " + start;
@@ -107,7 +107,6 @@ async function updateUI(city, start, end, tripLength) {
     document.getElementById('trip-length').innerHTML = "Trip Length: " + tripLength + " days";
     document.getElementById('c-temp').innerHTML = "Current Temperature: " + tripDets.temp + "\u00B0 F";
     document.getElementById('c-cond').innerHTML = "Current Conditions: " + tripDets.conditions;
-    console.log(tripDets.image);
     const img = document.getElementById('city-image');
     img.style.backgroundImage = 'url(' + tripDets.image + ')';
     img.style.border = 'none';
@@ -115,8 +114,15 @@ async function updateUI(city, start, end, tripLength) {
 };
 
 //add event listener and then add method to update UI
-document.querySelector('button[type=Add]').addEventListener("click", handleSubmit);
-document.querySelector('button[type=Remove]').addEventListener("click", clearForm);
-
+//document.querySelector('button[type=Add]').addEventListener("click", handleSubmit);
+document.addEventListener('DOMContentLoaded', () => {
+    const button_add = document.querySelector('button[type=Add]');
+    button_add.addEventListener("click", handleSubmit);
+});
+//document.querySelector('button[type=Remove]').addEventListener("click", clearForm);
+document.addEventListener('DOMContentLoaded', () => {
+    const button_remove = document.querySelector('button[type=Remove]');
+    button_remove.addEventListener("click", clearForm);
+});
 module.exports = handleSubmit;
 module.exports = clearForm;

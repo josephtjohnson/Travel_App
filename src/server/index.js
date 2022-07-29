@@ -32,8 +32,8 @@ const cors = require('cors');
 app.use(cors());
 
 //designates what port the app will listen to for incoming requests
-app.listen(8070, function () {
-    console.log('Example app listening on port 8081!')
+app.listen(8091, function () {
+    console.log('Example app listening on port 8091!')
 });
 
 //GET response for homepage

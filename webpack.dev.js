@@ -10,6 +10,9 @@ module.exports = {
      libraryTarget: 'var',
      library: 'Client'
     },
+    devServer: {
+        port: '8091'
+    },
     devtool: 'source-map',
     stats: 'verbose',
     module: {
