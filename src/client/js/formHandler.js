@@ -113,16 +113,5 @@ async function updateUI(city, start, end, tripLength) {
     console.log(img.style.backgroundImage);
 };
 
-//add event listener and then add method to update UI
-//document.querySelector('button[type=Add]').addEventListener("click", handleSubmit);
-document.addEventListener('DOMContentLoaded', () => {
-    const button_add = document.querySelector('button[type=Add]');
-    button_add.addEventListener("click", handleSubmit);
-});
-//document.querySelector('button[type=Remove]').addEventListener("click", clearForm);
-document.addEventListener('DOMContentLoaded', () => {
-    const button_remove = document.querySelector('button[type=Remove]');
-    button_remove.addEventListener("click", clearForm);
-});
-module.exports = handleSubmit;
-module.exports = clearForm;
+export { handleSubmit };
+export { clearForm };

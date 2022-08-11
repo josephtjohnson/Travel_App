@@ -13,7 +13,7 @@ module.exports = {
     devServer: {
         port: '8091'
     },
-    devtool: 'source-map',
+    devtool: 'eval',
     stats: 'verbose',
     module: {
         rules: [
