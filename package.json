@@ -1,5 +1,5 @@
 {
-  "name": "Travel App",
+  "name": "travel-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -40,7 +40,7 @@
     },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/josephtjohnson/FE_P3.git"
+    "url": "git+https://github.com/josephtjohnson/Travel-App.git"
   },
   "jest": {
     "testEnvironment": "node",
@@ -51,7 +51,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/josephtjohnson/FE_P3/issues"
+    "url": "https://github.com/josephtjohnson/Travel-App/issues"
   },
-  "homepage": "https://github.com/josephtjohnson/FE_P3#readme"
+  "homepage": "https://github.com/josephtjohnson/Travel-App#readme"
 }
