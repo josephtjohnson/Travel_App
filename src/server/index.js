@@ -8,6 +8,8 @@ const weatherbitApi = process.env.API_WB;
 const weatherbit = process.env.WEATHERBIT;
 const pixabayApi = process.env.API_PX;
 const pixabay = process.env.PIXABAY;
+const localURL = process.env,URL;
+
 
 let locationResults = {};
 
@@ -37,12 +39,12 @@ app.listen(8091, function () {
 });
 
 //GET response for homepage
-app.get('/', function (req, res) {
+app.get(URL + '/', function (req, res) {
     res.sendFile(path.resolve('src/client/views/index.html'))
 });
 
 //GET response for trip details
-app.get('/display', function (req, res) {
+app.get(URL + '/display', function (req, res) {
     res.send(locationResults);
 });
 
@@ -86,4 +88,4 @@ const getImage = async (city) => {
     };
 
 //POST route
-app.post('/trips', getTripDetails);
+app.post(URL + '/trips', getTripDetails);
