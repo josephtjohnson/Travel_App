@@ -8,7 +8,7 @@ const weatherbitApi = process.env.API_WB;
 const weatherbit = process.env.WEATHERBIT;
 const pixabayApi = process.env.API_PX;
 const pixabay = process.env.PIXABAY;
-const localURL = process.env,URL;
+const localURL = process.env.URL;
 
 
 let locationResults = {};
