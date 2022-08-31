@@ -39,12 +39,12 @@ app.listen(8091, function () {
 });
 
 //GET response for homepage
-app.get('/', function (req, res) {
+app.get('http://localhost:8091/', function (req, res) {
     res.sendFile(path.resolve('src/client/views/index.html'))
 });
 
 //GET response for trip details
-app.get('/display', function (req, res) {
+app.get('http://localhost:8091/display', function (req, res) {
     res.send(locationResults);
 });
 
@@ -88,4 +88,4 @@ const getImage = async (city) => {
     };
 
 //POST route
-app.post('/trips', getTripDetails);
+app.post('http://localhost:8091/trips', getTripDetails);
