@@ -44,7 +44,7 @@ app.get('http://localhost:8091/', function (req, res) {
 });
 
 //GET response for trip details
-app.get('http://localhost:8091/display', function (req, res) {
+app.get('/display', function (req, res) {
     res.send(locationResults);
 });
 
@@ -88,4 +88,4 @@ const getImage = async (city) => {
     };
 
 //POST route
-app.post('http://localhost:8091/trips', getTripDetails);
+app.post('/trips', getTripDetails);
