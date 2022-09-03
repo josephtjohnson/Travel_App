@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
-dotenv.config({path: 'C:\\Users\\Johns\\Desktop\\Travel-project\\Travel-App\\src\\.env'
-});
+//dotenv.config({path: 'C:\\Users\\Johns\\Desktop\\Travel-project\\Travel-App\\src\\.env'});
+dotenv.config({path : '.env'});
 
 const geonamesApi = process.env.API_GEO;
 const geonames = process.env.GEONAMES;
@@ -40,7 +40,7 @@ app.listen(8091, function () {
 
 //GET response for homepage
 app.get('http://localhost:8091/', function (req, res) {
-    res.sendFile(path.resolve('src/client/views/index.html'))
+    res.sendFile(path.resolve('dist/index.html'))
 });
 
 //GET response for trip details
