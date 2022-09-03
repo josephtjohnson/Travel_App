@@ -5,11 +5,11 @@ async function handleSubmit(event) {
         document.querySelector('.error-msg').remove();
     }
     let city = document.getElementById('location').value;
-    let start = document.getElementById('s-date').value;
-    let end = document.getElementById('e-date').value;
-    let startDate = new Date(document.getElementById('s-date').value);
-    let endDate = new Date(document.getElementById('e-date').value);
-    let tripLength = ((endDate.getTime() - startDate.getTime()) / 86400000);
+    let startDate = document.getElementById('s-date').valueAsDate;
+    let endDate = document.getElementById('e-date').valueAsDate;
+    //let startDate = new Date(document.getElementById('s-date').valueAsDate);
+    //let endDate = new Date(document.getElementById('e-date').valueAsDate);
+    let tripLength = (endDate - startDate)/86400000;
 
 
     //verify a city was put into the form field
@@ -40,7 +40,7 @@ async function handleSubmit(event) {
     }
     else {
     */
-    if(inputValidation(city, start, end, startDate, endDate)) {
+    if(inputValidation(city, startDate, endDate)) {
         try {
             const request = await fetch('http://localhost:8091/trips', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -50,7 +50,7 @@ async function handleSubmit(event) {
             },
             body: JSON.stringify({city: city}), // body data type must match "Content-Type" header
             });
-        updateUI(city, start, end, tripLength);
+        updateUI(city, startDate, endDate, tripLength);
         } catch(e) {
             console.log("error", e);
         };
@@ -59,6 +59,9 @@ async function handleSubmit(event) {
 
 function clearForm() {
     event.preventDefault();
+    document.getElementById('location').innerHTML = ''
+    document.getElementById('s-date').innerHTML = ''
+    document.getElementById('e-date').innerHTML = ''
     document.getElementById('city').innerHTML = 'Destination:';
     document.getElementById('start-date').innerHTML = 'Departure Date:';
     document.getElementById('end-date').innerHTML = 'Return Date:';
@@ -70,7 +73,7 @@ function clearForm() {
     img.style.border = '1px solid black';
 };
 
-function inputValidation(city, start, end, startDate, endDate) {
+function inputValidation(city,  startDate, endDate) {
     event.preventDefault();
     let div = document.createElement("div");
     div.classList.add("error-msg");
@@ -79,11 +82,6 @@ function inputValidation(city, start, end, startDate, endDate) {
 
     if (!Client.checkForCity(city)) {
         div.innerHTML += "PLEASE ENTER A VALID CITY";
-        clearForm();
-        return;
-    }
-    else if (!Client.checkForDate(start, end)) {
-        div.innerHTML += "DATE FORMAT MUST BE MM/DD/YYYY";
         clearForm();
         return;
     }
@@ -98,12 +96,14 @@ function inputValidation(city, start, end, startDate, endDate) {
     };
 };
 
-async function updateUI(city, start, end, tripLength) {
+async function updateUI(city, startDate, endDate, tripLength) {
     const response = await fetch('http://localhost:8091/display');
     const tripDets = await response.json();
     document.getElementById('city').innerHTML = "Destination: " + city;
-    document.getElementById('start-date').innerHTML = "Departure Date: " + start;
-    document.getElementById('end-date').innerHTML = "Return Date: " + end;
+    document.getElementById('start-date').innerHTML = "Departure Date: " + startDate.getMonth() + '/'
+    + startDate.getDate() + '/' + startDate.getFullYear();
+    document.getElementById('end-date').innerHTML = "Return Date: " + endDate.getMonth() + '/'
+    + endDate.getDate() + '/' + endDate.getFullYear();
     document.getElementById('trip-length').innerHTML = "Trip Length: " + tripLength + " days";
     document.getElementById('c-temp').innerHTML = "Current Temperature: " + tripDets.temp + "\u00B0 F";
     document.getElementById('c-cond').innerHTML = "Current Conditions: " + tripDets.conditions;
