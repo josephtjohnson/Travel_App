@@ -5,16 +5,16 @@ body{
 
 #app{
     display: grid;
+    height: 95vh;
     grid-auto-rows: auto;
     grid-template-columns: 1fr, 1fr, 1fr;
-	padding: 25px;
+	padding: 0.5em;
     background: #FF8033;
     color: #f0d43a;
     justify-content: center;
-    grid-gap: 1em;
-    font-size: 20px;
+    grid-gap: 0.3em;
+    font-size: 1em;
     font-family: 'Oswald', sans-serif;
-	border: 1px solid black;
 	grid-template-areas:
 		"top top top"
         "topL topL topL"
@@ -26,56 +26,63 @@ body{
 }
 
 .headline {
-	grid-area: top;
-	text-align: center;
+    display: flex;
+    grid-area: top;
+	justify-content: center;
 	font-size: 66px;
 	border: 1px solid black;
 }
 
 .error-msg {
+    display: flex;
     grid-area: topL;
-    text-align: center;
+    justify-content: center;
     font-size: 40px;
     border: 1px solid black;
 }
 
 .u-input {
 	display: flex;
-	margin: 5px;
-	padding: 20px;
-	grid-gap: 5em;
+	margin: 0.4em;
+	padding: 1em;
+    padding-top: 1.5em;
+	grid-gap: 0.5em;
 	grid-area: mid;
-	border: 1px solid black;
+    justify-content: center;
 }
 
 .holder {
+    display: flex;
+    flex-direction: column;
 	justify-content: center;
-	margin: 5px;
+	margin: 0.5em;
 	text-align: center;
+    align-items: center;
 }
 
 #city-image{
 	grid-area: img;
-	border: 1px solid black;
     background-image: none;
     background-size: contain;
     background-repeat: no-repeat;
+    align-items: center;
+    border: 1px solid black;
 }
 
 .add-delete {
 	display: flex;
-	margin: 5px;
-	padding: 20px;
-	grid-gap: 5em;
+	margin: 1em;
+	padding: 1em;
+	grid-gap: 20em;
 	grid-area: bottom;
-	border: 1px solid black;
 	justify-content: center;
+
 }
 
 .buttons {
 	display: flex;
 	grid-area: bottom1;
-	height: 100px;
+	height: 6em;
 }
 
 .results {
@@ -93,29 +100,33 @@ body{
 }
 
 label{
-    font-size: 27px;
+    font-size: 2em;
+    padding: 0.5em;
 	text-align: center;
 }
 
 input{
     display: block;
-    height: 70px;
-    width: 300px;
+    height: 3em;
+    width: 12em;
     background:#22b2da;
     color: #f0d43a;
-    font-size: 20px;
+    font-size: 1em;
     font-family: 'Oswald', sans-serif;
 	text-align: center;
 }
 
 button{
-    width: 400px;
-    height: 100px;
+    width: 12em;
+    height: 3em;
     background: #3b4a6b;
     color: #f0d43a;
-    font-size: 26px;
+    font-size: 1.5em;
     font-family: 'Oswald', sans-serif;
     border: none;
-    box-shadow: 2px 4px 5px #444;
 
+}
+
+button:hover{
+    box-shadow: 2px 4px 5px #444;
 }

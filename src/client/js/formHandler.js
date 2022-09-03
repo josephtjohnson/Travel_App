@@ -52,7 +52,7 @@ async function handleSubmit(event) {
             });
         updateUI(city, startDate, endDate, tripLength);
         } catch(e) {
-            console.log("error", e);
+            console.log('TESTING TESTING TESTING', e);
         };
     };
 };
