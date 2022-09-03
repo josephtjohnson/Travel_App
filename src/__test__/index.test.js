@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
-dotenv.config({path: 'C:\\Users\\Johns\\Desktop\\Travel-project\\Travel-App\\src\\.env'
-});
+//dotenv.config({path: 'C:\\Users\\Johns\\Desktop\\Travel-project\\Travel-App\\src\\.env'});
+dotenv.config({path : '.env'});
 
 const geonamesApi = process.env.API_GEO;
 const geonames = process.env.GEONAMES;
